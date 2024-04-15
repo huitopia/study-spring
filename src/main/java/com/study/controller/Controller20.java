@@ -9,6 +9,23 @@ import java.util.Arrays;
 @Controller
 @RequestMapping("main20")
 public class Controller20 {
+
+    @RequestMapping("sub1")
+    public void sub1() {
+    }
+
+    @RequestMapping("sub2")
+    public void sub2() {
+    }
+
+    @RequestMapping("sub3")
+    public void sub3() {
+    }
+
+    @RequestMapping("sub4")
+    public void sub4() {
+    }
+
     @RequestMapping("sub11")
     public void sub11() {
 
