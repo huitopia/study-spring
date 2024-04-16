@@ -145,5 +145,29 @@ public class Controller22 {
     public void sub15() {
     }
 
+    @GetMapping("sub16")
+    public void sub16() {
+    }
+
+    @PostMapping("sub17")
+    public String sub17(
+            String id,
+            String password,
+            RedirectAttributes rttr
+    ) {
+        boolean ok = id.equals(password);
+        if (ok) {
+            rttr.addFlashAttribute("message", "Login Success");
+            return "redirect:/main22/sub18";
+        } else {
+            rttr.addFlashAttribute("message", "Login fail! Please id&pw check");
+            return "redirect:/main22/sub16";
+        }
+    }
+
+    @GetMapping("sub18")
+    public void sub18() {
+    }
+
 
 }
