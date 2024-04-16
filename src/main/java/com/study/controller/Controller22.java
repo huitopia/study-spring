@@ -121,5 +121,29 @@ public class Controller22 {
         System.out.println("attr1 = " + attr1);
     }
 
-    
+    @GetMapping("sub13")
+    public void sub13() {
+    }
+
+    @PostMapping("sub14")
+    public String sub14(String id,
+                        String password,
+                        RedirectAttributes rttr) {
+        boolean ok = id.equals(password);
+        if (ok) {
+            // 로그인 성공시 메인 페이지
+            rttr.addFlashAttribute("message", "login success");
+            return "redirect:/main22/sub15";
+        } else {
+            // 로그인 실패시 다시 로그인 페이지
+            rttr.addFlashAttribute("message", "id, pw check please");
+            return "redirect:/main22/sub13";
+        }
+    }
+
+    @GetMapping("sub15")
+    public void sub15() {
+    }
+
+
 }
