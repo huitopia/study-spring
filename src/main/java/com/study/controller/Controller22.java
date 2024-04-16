@@ -2,9 +2,12 @@ package com.study.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("main22")
@@ -30,13 +33,16 @@ public class Controller22 {
     }
 
     @PostMapping("sub4")
-    public String sub4(String id, String password) {
+    public String sub4(String id, String password,
+                       RedirectAttributes rttr) {
         boolean ok = id.equals(password);
         if (ok) {
+            rttr.addAttribute("type", "login");
             // 로그인 성공 처리
             // 성공 후 보여주는 페이지로 이동
             return "redirect:/main22/sub5";
         } else {
+            rttr.addAttribute("type", "fail");
             // 로그인 실패 처리
             // 로그인 form 페이지로 이동
             return "redirect:/main22/sub3";
@@ -53,13 +59,17 @@ public class Controller22 {
     }
 
     @PostMapping("sub7")
-    public String sub7(String id, String password) {
+    public String sub7(String id, String password,
+                       RedirectAttributes rttr
+    ) {
         boolean bool = id.equals(password);
         // id 와 password 가 일치하면 로그인 성공 > /main22/sub8
         if (bool) {
+            rttr.addAttribute("type", "login");
             return "redirect:/main22/sub8";
         } else {
             // 실패 > /main22/sub6
+            rttr.addAttribute("type", "fail");
             return "redirect:/main22/sub6";
         }
     }
@@ -90,4 +100,26 @@ public class Controller22 {
         System.out.println("condition = " + condition);
         System.out.println("Controller22.sub10");
     }
+
+    @GetMapping("sub11")
+    public String sub11(RedirectAttributes rttr) {
+        // Qeury String
+        rttr.addAttribute("type", "soccer");
+        // Model
+        rttr.addFlashAttribute("attr1", List.of("car", "food", "phone"));
+        return "redirect:/main22/sub12";
+    }
+
+    /*
+    @GetMapping("sub12")
+    public void sub12(Model model) {
+        Object attr1 = model.getAttribute("attr1");
+        System.out.println("attr1 = " + attr1);
+    }*/
+    @GetMapping("sub12")
+    public void sub12(@ModelAttribute("attr1") List<String> attr1) {
+        System.out.println("attr1 = " + attr1);
+    }
+
+    
 }
