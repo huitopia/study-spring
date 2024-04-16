@@ -23,7 +23,7 @@ public class Controller23 {
         // 1. DB 연결
         String url = "jdbc:mariadb://localhost:3306/w3schools";
         String user = "root";
-        String password = "";
+        String password = "0";
         Connection con = DriverManager.getConnection(url, user, password);
         // 2. 실행 준비
         Statement statement = con.createStatement();
@@ -51,7 +51,7 @@ public class Controller23 {
         // 1. db 연결
         String url = "jdbc:mariadb://localhost:3306/w3schools";
         String user = "root";
-        String password = "1024";
+        String password = "0";
         Connection con = DriverManager.getConnection(url, user, password);
         // 2. 실행 준비
         Statement statement = con.createStatement();
