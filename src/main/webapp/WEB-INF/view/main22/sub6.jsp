@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
+<c:if test="${param.type eq 'fail'}">
+    로그인 실패
+</c:if>
 <form action="/main22/sub7" method="post">
     <div>
         ID
