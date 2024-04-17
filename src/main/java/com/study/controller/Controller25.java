@@ -118,11 +118,12 @@ public class Controller25 {
             while (resultSet.next()) {
                 int id = resultSet.getInt(1);
                 String name = resultSet.getString(2);
+                String contactName = resultSet.getString(3);
                 String address = resultSet.getString(4);
                 String city = resultSet.getString(5);
                 String postalCode = resultSet.getString(6);
                 String country = resultSet.getString(7);
-                MyBean254 bean = new MyBean254(id, name, address, city, postalCode, country);
+                MyBean254 bean = new MyBean254(id, name, contactName, address, city, postalCode, country);
                 list.add(bean);
             }
         }
