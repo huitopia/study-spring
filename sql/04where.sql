@@ -63,3 +63,12 @@ WHERE Price >= 20.00;
 SELECT *
 FROM Orders
 WHERE OrderDate < '1997-01-01';
+
+# Controller24 sub1
+SELECT *
+FROM Employees
+WHERE LastName = 'Fuller';
+
+# SELECT *
+# FROM Customers
+# WHERE CustomerName = 'Simons bistro';
