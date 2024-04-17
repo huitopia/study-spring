@@ -18,5 +18,5 @@ FROM Customers;
 SELECT COUNT(DISTINCT City)
 FROM Customers;
 
-SELECT DISTINCT Customers.Country
+SELECT DISTINCT Country
 FROM Customers;

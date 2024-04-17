@@ -65,13 +65,13 @@ public class Controller24 {
     // 고객이 있는 나라들을 중복없이 조회 후 jsp에서 출력
     public void sub3(@ModelAttribute("countries") ArrayList<String> list) throws Exception {
         String sql = """
-                SELECT DISTINCT Customers.Country
+                SELECT DISTINCT Country
                 FROM Customers;
                 """;
-        Connection con = dataSource.getConnection();
-        Statement statement = con.createStatement();
+        
+        Statement statement = dataSource.getConnection().createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-        try (resultSet; statement; con) {
+        try (resultSet; statement) {
             while (resultSet.next()) {
                 String country = resultSet.getString(1);
                 list.add(country);
