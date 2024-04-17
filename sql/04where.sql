@@ -42,3 +42,24 @@ WHERE BirthDate = '1968-12-08';
 SELECT *
 FROM Employees
 WHERE BirthDate >= '1955-01-01';
+
+# todo : 미국에 있는 Suppliers 조회
+SELECT *
+FROM Suppliers
+WHERE Country = 'USA';
+# todo : LastName='Fuller' Employees 조회
+SELECT *
+FROM Employees
+WHERE LastName = 'Fuller';
+# todo : CategoryId = 3 Products 조회
+SELECT *
+FROM Products
+WHERE CategoryID = 3;
+# todo : Price > 20.00  products 조회
+SELECT *
+FROM Products
+WHERE Price >= 20.00;
+# todo : 주문일이 1997년 이전인 Orders 조회
+SELECT *
+FROM Orders
+WHERE OrderDate < '1997-01-01';
