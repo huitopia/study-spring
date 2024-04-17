@@ -22,8 +22,8 @@
 </head>
 <body>
 <h3>고객 정보 조회</h3>
-<form action="/main25/sub4">
-    <input type="text" name="name" placeholder="고객 이름 입력">
+<form>
+    <input type="text" name="name" placeholder="고객 이름 입력" value="${param.name}">
     <input type="submit" value="조회">
 </form>
 <table>

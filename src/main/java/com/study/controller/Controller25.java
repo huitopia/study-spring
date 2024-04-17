@@ -108,7 +108,7 @@ public class Controller25 {
         String sql = """
                 SELECT *
                 FROM Customers
-                WHERE CustomerName Like ?
+                WHERE CustomerName LIKE ?
                 """;
         Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
