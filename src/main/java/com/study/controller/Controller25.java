@@ -3,6 +3,7 @@ package com.study.controller;
 import com.study.domain.MyBean251;
 import com.study.domain.MyBean252;
 import com.study.domain.MyBean254;
+import com.study.domain.MyBean255;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -124,6 +125,32 @@ public class Controller25 {
                 String postalCode = resultSet.getString(6);
                 String country = resultSet.getString(7);
                 MyBean254 bean = new MyBean254(id, name, contactName, address, city, postalCode, country);
+                list.add(bean);
+            }
+        }
+    }
+
+    // todo : 상품명 조회 메소드 작성
+    @GetMapping("sub5")
+    public void sub5(@RequestParam(value = "search", required = false) String search,
+                     @ModelAttribute("products") ArrayList<MyBean255> list) throws SQLException {
+        String sql = """
+                SELECT * FROM Products WHERE ProductName LIKE ?
+                """;
+        String keyword = "%" + search + "%";
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, keyword);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        try (resultSet; preparedStatement; connection) {
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                Integer supplierId = resultSet.getInt(3);
+                Integer categoryId = resultSet.getInt(4);
+                String unit = resultSet.getString(5);
+                Double price = resultSet.getDouble(6);
+                MyBean255 bean = new MyBean255(id, name, supplierId, categoryId, unit, price);
                 list.add(bean);
             }
         }

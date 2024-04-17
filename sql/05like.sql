@@ -29,3 +29,6 @@ WHERE Country LIKE '%a';
 SELECT *
 FROM Orders
 WHERE OrderDate LIKE '____-__-_1';
+
+SELECT *
+FROM Products;
