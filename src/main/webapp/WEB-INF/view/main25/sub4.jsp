@@ -4,6 +4,11 @@
 <head>
     <title>Title</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
         table {
             width: 80%;
             text-align: center;
