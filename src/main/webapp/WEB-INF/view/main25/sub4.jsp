@@ -23,7 +23,7 @@
 <body>
 <h3>고객 정보 조회</h3>
 <form>
-    <input type="text" name="name" placeholder="고객 이름 입력" value="${param.name}">
+    <input value="${prevSearch}" type="text" placeholder="조회할 고객 이름을 입력하세요." name="search">
     <input type="submit" value="조회">
 </form>
 <table>

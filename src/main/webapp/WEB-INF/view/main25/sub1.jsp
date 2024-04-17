@@ -7,7 +7,7 @@
 <body>
 <h3>직원 조회</h3>
 <div>
-    <form action="/main25/sub1">
+    <form>
         이름 :
         <input type="text" name="name" placeholder="조회 이름 입력">
         <input type="submit" value="조회">

@@ -1,11 +1,12 @@
 package com.study.controller;
 
-import com.study.domain.MyBean251;
+import com.study.domain.MyBean251Employees;
 import com.study.domain.MyBean252;
 import com.study.domain.MyBean254;
 import com.study.domain.MyBean255;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,7 @@ public class Controller25 {
             @RequestParam(value = "name", required = false)
             String searchName,
             @ModelAttribute("employees")
-            ArrayList<MyBean251> list
+            ArrayList<MyBean251Employees> list
     ) throws SQLException {
         String sql = STR."""
                 SELECT * FROM Employees WHERE LastName = '\{searchName}'
@@ -36,14 +37,14 @@ public class Controller25 {
         ResultSet rs = statement.executeQuery(sql);
         try (rs; statement) {
             while (rs.next()) {
-                String id = rs.getString(1);
+                Integer id = rs.getInt(1);
                 String lastName = rs.getString(2);
                 String firstName = rs.getString(3);
                 String birthDate = rs.getString(4);
                 String photo = rs.getString(5);
                 String notes = rs.getString(6);
 
-                MyBean251 obj = new MyBean251(id, lastName, firstName, birthDate, photo, notes);
+                MyBean251Employees obj = new MyBean251Employees(id, lastName, firstName, birthDate, photo, notes);
                 list.add(obj);
             }
         }
@@ -154,5 +155,68 @@ public class Controller25 {
                 list.add(bean);
             }
         }
+    }
+
+    @GetMapping("sub6")
+    public String sub6(String search, Model model) throws SQLException {
+        // 조회 문자열이 contactName 또는 customerName 에 포함된 고객들 조회
+        var list = new ArrayList<MyBean254>();
+        String sql = """
+                SELECT * FROM Customers WHERE CustomerName Like ?
+                OR ContactName LIKE ?
+                """;
+        String keyword = "%" + search + "%";
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, keyword);
+        preparedStatement.setString(2, keyword);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        try (resultSet; preparedStatement; connection) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                String contactName = resultSet.getString(3);
+                String address = resultSet.getString(4);
+                String city = resultSet.getString(5);
+                String postalCode = resultSet.getString(6);
+                String country = resultSet.getString(7);
+                MyBean254 bean = new MyBean254(id, name, contactName, address, city, postalCode, country);
+                list.add(bean);
+            }
+        }
+        model.addAttribute("prevSearch", search);
+        model.addAttribute("customers", list);
+        return "main25/sub4";
+    }
+
+    @GetMapping("sub7")
+    public String sub7(@RequestParam(value = "name", required = false) String name,
+                       @ModelAttribute("employees") ArrayList<MyBean251Employees> list) throws SQLException {
+        // todo : 조회 문자열이 lastName 또는 firstName에 포함된 직원들 조회 메소드
+        String sql = """
+                SELECT *
+                FROM Employees
+                WHERE FirstName LIKE ?
+                   OR LastName LIKE ?
+                """;
+        String keyword = "%" + name + "%";
+        Connection connection = dataSource.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setString(1, keyword);
+        preparedStatement.setString(2, keyword);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        try (resultSet; preparedStatement; connection) {
+            while (resultSet.next()) {
+                Integer id = resultSet.getInt(1);
+                String lastName = resultSet.getString(2);
+                String firstName = resultSet.getString(3);
+                String birthDate = resultSet.getString(4);
+                String photo = resultSet.getString(5);
+                String notes = resultSet.getString(6);
+                MyBean251Employees bean = new MyBean251Employees(id, lastName, firstName, birthDate, photo, notes);
+                list.add(bean);
+            }
+        }
+        return "main25/sub1";
     }
 }
