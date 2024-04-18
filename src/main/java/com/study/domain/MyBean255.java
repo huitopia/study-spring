@@ -12,4 +12,5 @@ public class MyBean255 {
     private Integer categoryId;
     private String unit;
     private Double price;
+
 }
