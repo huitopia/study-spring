@@ -32,3 +32,8 @@ VALUES ('v', 'compose', 'sinchon', 'seoul', '1111', 'korea');
 
 INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
 VALUES ('itzy', 'mega', 'hongdae', 'seoul', '32-4', 'korea');
+
+SELECT *
+FROM Employees
+ORDER BY EmployeeID DESC
+LIMIT 1;
