@@ -4,10 +4,18 @@
 <head>
     <title>Title</title>
     <style>
-
+        .msg {
+            font-size: 1.5rem;
+            color: red;
+        }
     </style>
 </head>
 <body>
+<div>
+    <c:if test="${not empty message}">
+        <div class="msg">${message}</div>
+    </c:if>
+</div>
 <h3>New Customer Create</h3>
 <form action="" method="post">
     <div>

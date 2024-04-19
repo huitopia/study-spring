@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -24,7 +25,8 @@ public class Controller28 {
 
     @PostMapping("sub1")
     public String method2(
-            MyBean281Customer customer
+            MyBean281Customer customer,
+            RedirectAttributes rttr
     ) throws SQLException {
         System.out.println("customer = " + customer);
         Connection conn = dataSource.getConnection();
@@ -42,6 +44,9 @@ public class Controller28 {
             ps.setString(5, customer.getPostalCode());
             ps.setString(6, customer.getCountry());
             int rowCount = ps.executeUpdate();
+            if (rowCount == 1) {
+                rttr.addFlashAttribute("message", "new customer add");
+            }
         }
         return "redirect:/main28/sub1"; // post 요청 아니고 get 으로 보냄
     }
