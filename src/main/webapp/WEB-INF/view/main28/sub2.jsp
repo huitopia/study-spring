@@ -52,7 +52,6 @@
 </form>
 
 <c:if test="${not empty message}">
-    <div>${message}</div>
     <h3>${message}</h3>
     <table>
         <thead>
