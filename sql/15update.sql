@@ -40,3 +40,21 @@ FROM Customers;
 UPDATE Customers
 SET Country = '영국';
 
+SELECT *
+FROM Products
+WHERE ProductID = 1;
+
+# 값 연산 후 실행 가능
+UPDATE Products
+SET Price = Price * 2
+WHERE ProductID = 1;
+
+# todo: CategoryID = 2 상품 가격 3배 업데이트
+SELECT *
+FROM Products
+WHERE CategoryID = 2;
+
+UPDATE Products
+SET Price = Price * 3
+WHERE CategoryID = 2;
+
