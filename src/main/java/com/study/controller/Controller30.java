@@ -1,6 +1,8 @@
 package com.study.controller;
 
 import com.study.domain.MyBean281Customer;
+import com.study.domain.MyBean283Employees;
+import com.study.mapper.Mapper01;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,33 +22,16 @@ import java.sql.SQLException;
 public class Controller30 {
     @Autowired
     private DataSource dataSource;
+    // dependency
+//    private Mapper01 mapper01 = new Mapper01();
+    // Inversion of Control
+    @Autowired
+    private Mapper01 mapper01;
 
     @GetMapping("sub1")
     public void method1(Integer id, Model model) throws SQLException {
-        if (id != null) {
-            String sql = """
-                    SELECT * FROM Customers
-                    WHERE CustomerID = ?
-                    """;
-            Connection conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            try (rs; ps; conn) {
-                while (rs.next()) {
-                    MyBean281Customer bean = new MyBean281Customer();
-                    bean.setId(rs.getInt(1));
-                    bean.setName(rs.getString(2));
-                    bean.setContactName(rs.getString(3));
-                    bean.setAddress(rs.getString(4));
-                    bean.setCity(rs.getString(5));
-                    bean.setPostalCode(rs.getString(6));
-                    bean.setCountry(rs.getString(7));
-
-                    model.addAttribute("customer", bean);
-                }
-            }
-        }
+        MyBean281Customer bean = mapper01.getCustomerById(id);
+        model.addAttribute("customer", bean);
     }
 
     @PostMapping("sub1/update")
@@ -82,5 +67,62 @@ public class Controller30 {
         rttr.addAttribute("id", customer.getId());
         return "redirect:/main30/sub1";
     }
+
     // todo: 직원 조회 및 수정
+    @GetMapping("sub2")
+    public void method3(Integer id, Model model) throws SQLException {
+        if (id != null) {
+            String sql = """
+                    SELECT * FROM Employees
+                    WHERE EmployeeID = ?
+                    """;
+            Connection conn = dataSource.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            try (rs; pstmt; conn) {
+                while (rs.next()) {
+                    MyBean283Employees bean = new MyBean283Employees();
+                    bean.setId(rs.getInt(1));
+                    bean.setLastName(rs.getString(2));
+                    bean.setFirstName(rs.getString(3));
+                    bean.setBirthDate(rs.getString(4));
+                    bean.setPhoto(rs.getString(5));
+                    bean.setNotes(rs.getString(6));
+                    model.addAttribute("employee", bean);
+                }
+            }
+        }
+    }
+
+    @PostMapping("sub2/update")
+    public String method4(MyBean283Employees employee,
+                          RedirectAttributes rttr
+    ) throws SQLException {
+        String sql = """
+                UPDATE Employees
+                SET LastName = ?,
+                FirstName = ?,
+                BirthDate = ?,
+                Photo = ?,
+                Notes = ?
+                WHERE EmployeeID = ?
+                """;
+        Connection conn = dataSource.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1, employee.getFirstName());
+        pstmt.setString(2, employee.getLastName());
+        pstmt.setString(3, employee.getBirthDate());
+        pstmt.setString(4, employee.getPhoto());
+        pstmt.setString(5, employee.getNotes());
+        pstmt.setInt(6, employee.getId());
+        int rowCount = pstmt.executeUpdate();
+        if (rowCount > 0) {
+            rttr.addFlashAttribute("message", employee.getId() + " UPDATE Success");
+        } else {
+            rttr.addFlashAttribute("message", employee.getId() + " UPDATE Fail");
+        }
+        rttr.addAttribute("id", employee.getId());
+        return "redirect:/main30/sub2";
+    }
 }
