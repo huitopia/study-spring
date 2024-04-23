@@ -2,9 +2,11 @@ package com.study.controller;
 
 import com.study.domain.MyBean281Customer;
 import com.study.domain.MyBean283Employees;
+import com.study.mapper.Mapper02;
 import com.study.mapper.Mapper03;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("main32")
 public class Controller32 {
     private final Mapper03 mapper;
+    private final Mapper02 mapper02;
 
     @GetMapping("sub1")
     public void method1() {
@@ -67,8 +70,47 @@ public class Controller32 {
     }
 
     @GetMapping("sub6")
-    public void method6(@RequestParam(value = "id",required = false)
-                        ) {
+    public void method6(
+            @RequestParam(value = "id", required = false) Integer eid,
+            Model model
+    ) {
+        if (eid != null) {
+            MyBean283Employees e = mapper02.selectEmployee2(eid);
+            model.addAttribute("employee", e);
+        }
+    }
 
+    @PostMapping("sub6/update")
+    public String method7(MyBean283Employees employee, RedirectAttributes rttr) {
+        System.out.println(employee);
+        int i = mapper.updateEmployee(employee);
+        if (i > 0) {
+            rttr.addFlashAttribute("message", "Update Success");
+        } else {
+            rttr.addFlashAttribute("message", "Update Fail");
+        }
+        rttr.addAttribute("id", employee.getId());
+        return "redirect:/main32/sub6";
+    }
+
+    // todo: 고객 조회 후 수정
+    @GetMapping("sub7")
+    public void method8(Integer id, Model model) {
+        MyBean281Customer c = mapper02.selectCustomerRead4(id);
+        if (c != null) {
+            model.addAttribute("customer", c);
+        }
+    }
+
+    @PostMapping("sub7/update")
+    public String method9(MyBean281Customer customer,
+                          RedirectAttributes rttr) {
+        int c = mapper.updateCustomerById(customer);
+        if (c > 0) {
+            rttr.addFlashAttribute("message", customer.getId() + "번 Update Success");
+        } else {
+            rttr.addFlashAttribute("message", "Update Fail");
+        }
+        return "redirect:/main32/sub7";
     }
 }
