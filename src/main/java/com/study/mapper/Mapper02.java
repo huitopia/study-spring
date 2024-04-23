@@ -16,4 +16,21 @@ public interface Mapper02 {
             WHERE CustomerID = 1
             """)
     MyBean281Customer selectCustomerRead();
+
+    @Select("""
+            SELECT * FROM Customers WHERE CustomerID = 1
+            """)
+    MyBean281Customer selectCustomerRead2();
+
+    @Select("""
+            SELECT Customers.CustomerID id, 
+            Customers.CustomerName name,
+            ContactName,
+            Address,
+            City,
+            Country,
+            PostalCode
+            FROM Customers WHERE CustomerID = 1
+                        """)
+    MyBean281Customer selectCustomerRead3();
 }
