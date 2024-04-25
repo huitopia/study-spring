@@ -1,6 +1,6 @@
 USE w3schools;
 
-# PRIMARY KEY : NOT NULL UNIQUE
+# PRIMARY KEY : NOT NULL + UNIQUE + 변경 가능성 0에 가까운 값
 CREATE TABLE my_table17
 (
     col1 INT,
