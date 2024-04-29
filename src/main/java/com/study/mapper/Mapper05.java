@@ -9,6 +9,7 @@ import java.util.List;
 @Mapper
 public interface Mapper05 {
 
+
     @Data
     static class EmployeeIncome {
         private Integer employeeId;
@@ -30,4 +31,26 @@ public interface Mapper05 {
             ORDER BY income DESC
             """)
     List<EmployeeIncome> selectIncomeList(String from, String to);
+
+    @Data
+    public class CustomerPrice {
+        private String customerName;
+        private String orderDate;
+        private Double customerPrice;
+    }
+
+    @Select("""
+            SELECT c.CustomerName,
+                   o.OrderDate,
+                   SUM(p.Price * od.Quantity) customerPrice
+            FROM Orders o
+                     JOIN Customers c ON o.CustomerID = c.CustomerID
+                     JOIN OrderDetails od ON od.OrderID = o.OrderID
+                     JOIN Products p ON od.ProductID = p.ProductID
+            WHERE o.OrderDate LIKE #{from}
+            GROUP BY c.CustomerID
+            ORDER BY customerPrice DESC
+            """)
+    List<CustomerPrice> selectPriceList(String from);
+
 }
