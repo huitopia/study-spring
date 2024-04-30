@@ -1,6 +1,7 @@
 package com.study.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,7 +22,22 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(
             String username
     ) throws UsernameNotFoundException {
-        String encoded = bcrypt.encode("h2");
-        return new User("hi", encoded, List.of());
+        if (username.equals("h1")) {
+            String encoded = bcrypt.encode("hi");
+            return new User("h1", encoded, List.of(
+                    new SimpleGrantedAuthority("user")
+            ));
+        } else if (username.equals("h2")) {
+            String encoded = bcrypt.encode("hii");
+            return new User("h2", encoded,
+                    List.of(
+                            // SimpleGrantedAuthority : 사용자 권한 부여
+                            new SimpleGrantedAuthority("admin"),
+                            new SimpleGrantedAuthority("user")
+                    )
+            );
+        } else {
+            throw new UsernameNotFoundException(username + " not found");
+        }
     }
 }
