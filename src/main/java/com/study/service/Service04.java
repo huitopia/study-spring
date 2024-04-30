@@ -1,6 +1,7 @@
 package com.study.service;
 
 import com.study.domain.MyBean283Employees;
+import com.study.domain.MyBean284Products;
 import com.study.mapper.Mapper08;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class Service04 {
     }
 
     public void action07() {
-        mapper.query7();
+        List<MyBean284Products> p = mapper.query7();
+        p.forEach(System.out::println);
     }
 }

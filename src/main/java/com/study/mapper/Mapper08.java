@@ -1,6 +1,7 @@
 package com.study.mapper;
 
 import com.study.domain.MyBean283Employees;
+import com.study.domain.MyBean284Products;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -89,8 +90,12 @@ public interface Mapper08 {
     List<MyBean283Employees> query6(String keyword);
 
     @Select("""
+            <script>
+            <![CDATA[
             SELECT * FROM Products
             WHERE Price < 5
+            ]]>
+            </script>
             """)
-    void query7();
+    List<MyBean284Products> query7();
 }
