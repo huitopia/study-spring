@@ -16,10 +16,15 @@ public class Controller35 {
     public void sub1() {
         service.transferMoney1();
     }
-    
+
     // transaction
     @GetMapping("sub2")
     public void sub2() {
         service.transferMoney2();
+    }
+
+    @GetMapping("sub3")
+    public void sub3() throws Exception {
+        service.transferMoney3();
     }
 }

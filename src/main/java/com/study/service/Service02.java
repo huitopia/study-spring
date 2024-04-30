@@ -24,4 +24,12 @@ public class Service02 {
             throw new RuntimeException();
         }
     }
+
+    @Transactional
+    public void transferMoney3() throws Exception {
+        mapper.minusMoney();
+        if (true) {
+            throw new Exception();
+        }
+    }
 }
