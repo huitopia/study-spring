@@ -25,11 +25,34 @@ public class Service02 {
         }
     }
 
+    // check Exception roll back X
     @Transactional
     public void transferMoney3() throws Exception {
         mapper.minusMoney();
         if (true) {
             throw new Exception();
+        }
+    }
+
+    // check Exception 설정
+    @Transactional(rollbackFor = Exception.class)
+    public void transferMoney4() throws Exception {
+        mapper.minusMoney();
+        if (true) {
+            throw new Exception();
+        }
+    }
+
+    @Transactional
+    public void transferMoney5() {
+        mapper.minusMoney();
+
+        try { // Exception 발생하면 RuntimeException 으로 보냄
+            if (true) {
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            throw new RuntimeException();
         }
     }
 }

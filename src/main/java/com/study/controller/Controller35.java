@@ -27,4 +27,14 @@ public class Controller35 {
     public void sub3() throws Exception {
         service.transferMoney3();
     }
+
+    @GetMapping("sub4")
+    public void sub4() throws Exception {
+        service.transferMoney4();
+    }
+
+    @GetMapping("sub5")
+    public void sub5() {
+        service.transferMoney5();
+    }
 }
