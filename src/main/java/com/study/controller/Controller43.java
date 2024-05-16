@@ -16,28 +16,34 @@ public class Controller43 {
         return ResponseEntity.ok().build();
     }
 
+
     @GetMapping("sub2")
-    public ResponseEntity method2() {
+//    @ResponseBody
+    public ResponseEntity sub2() {
+
+//        return ResponseEntity.status(400).build();
         return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("sub3")
-    public ResponseEntity method3() {
-        return ResponseEntity.status(403).build();
-    }
-
-    @GetMapping("sub4")
-    public ResponseEntity method4() {
+    public ResponseEntity sub3() {
         return ResponseEntity.status(401).build();
     }
 
+    @GetMapping("sub4")
+    public ResponseEntity sub4() {
+        return ResponseEntity.status(403).build();
+    }
+
     @GetMapping("sub5")
-    public ResponseEntity method5() {
+    public ResponseEntity sub5() {
+//        return ResponseEntity.status(404).build();
         return ResponseEntity.notFound().build();
     }
 
     @GetMapping("sub6")
-    public ResponseEntity method6() {
+    public ResponseEntity sub6() {
+//        return ResponseEntity.status(500).build();
         return ResponseEntity.internalServerError().build();
     }
 }
