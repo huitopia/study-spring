@@ -1,5 +1,6 @@
 package com.study.controller;
 
+import com.study.domain.MyBean411;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,5 +44,14 @@ public class Controller42 {
                 "bool", true,
                 "list", List.of("z", "x", "c", "v"),
                 "mapmap", Map.of("k", "v"));
+    }
+
+    @GetMapping("sub5")
+    @ResponseBody
+    public MyBean411 method5() {
+        MyBean411 obj = new MyBean411();
+        obj.setName("lee");
+        obj.setAge(30);
+        return obj;
     }
 }
