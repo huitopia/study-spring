@@ -34,4 +34,14 @@ public class Controller42 {
                 "item", List.of("k", "i", "m")
         );
     }
+
+    @GetMapping("sub4")
+    @ResponseBody
+    public Map method4() {
+        return Map.of("string", "sss",
+                "integer", 01,
+                "bool", true,
+                "list", List.of("z", "x", "c", "v"),
+                "mapmap", Map.of("k", "v"));
+    }
 }
