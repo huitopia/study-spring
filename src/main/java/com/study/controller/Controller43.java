@@ -39,6 +39,5 @@ public class Controller43 {
     @GetMapping("sub6")
     public ResponseEntity method6() {
         return ResponseEntity.internalServerError().build();
-        ;
     }
 }
