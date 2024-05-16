@@ -42,4 +42,17 @@ public class Controller40 {
         System.out.println("name = " + name);
         System.out.println("age = " + age);
     }
+
+    @GetMapping("api/someurl4")
+    public void method7(@RequestParam("age") Integer age,
+                        @RequestParam("job") String job) {
+        System.out.println("age = " + age);
+        System.out.println("job = " + job);
+    }
+
+    @PostMapping("/api/someurl4")
+    public void method8(Integer id, String name) {
+        System.out.println("id = " + id);
+        System.out.println("name = " + name);
+    }
 }
