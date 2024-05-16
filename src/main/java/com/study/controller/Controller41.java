@@ -16,4 +16,15 @@ public class Controller41 {
         // 역직렬화(parse, decode) JSON -> Map
         System.out.println("map = " + map);
     }
+
+    @PostMapping("sub2")
+    public void method2(@RequestBody Map<String, Object> map) {
+        System.out.println("map = " + map);
+        System.out.println("map.keySet() = " + map.keySet());
+    }
+
+    @PostMapping("sub3")
+    public void sub3(@RequestBody Map<String, Object> map) {
+        System.out.println("map = " + map);
+    }
 }
