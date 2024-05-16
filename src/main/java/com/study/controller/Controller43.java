@@ -13,12 +13,12 @@ public class Controller43 {
     @GetMapping("sub1")
     @ResponseBody // ResponseEntity 응답일땐 생략 가능
     public ResponseEntity method1() {
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("sub2")
     public ResponseEntity method2() {
-        return ResponseEntity.status(400).build();
+        return ResponseEntity.badRequest().build();
     }
 
     @GetMapping("sub3")
@@ -33,11 +33,12 @@ public class Controller43 {
 
     @GetMapping("sub5")
     public ResponseEntity method5() {
-        return ResponseEntity.status(404).build();
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("sub6")
     public ResponseEntity method6() {
-        return ResponseEntity.status(500).build();
+        return ResponseEntity.internalServerError().build();
+        ;
     }
 }
