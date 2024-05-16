@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+import java.util.Map;
+
 @Controller
 @RequestMapping("/api/main42")
 public class Controller42 {
@@ -19,5 +22,16 @@ public class Controller42 {
     @ResponseBody
     public String method2() {
         return "log?????";
+    }
+
+    @GetMapping("/sub3")
+    @ResponseBody
+    public Map method3() {
+        return Map.of("name", "kim",
+                "age", 30,
+                "married", true,
+                "info", Map.of("team", "토트넘", "location", "london"),
+                "item", List.of("k", "i", "m")
+        );
     }
 }
