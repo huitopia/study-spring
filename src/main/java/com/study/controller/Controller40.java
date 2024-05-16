@@ -35,4 +35,11 @@ public class Controller40 {
         System.out.println("name = " + name);
         System.out.println("email = " + email);
     }
+
+    @PostMapping("/api/someurl3")
+    public void method6(@RequestParam("name") String name,
+                        @RequestParam("age") Integer age) {
+        System.out.println("name = " + name);
+        System.out.println("age = " + age);
+    }
 }
