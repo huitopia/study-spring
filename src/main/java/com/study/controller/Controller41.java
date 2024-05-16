@@ -1,5 +1,6 @@
 package com.study.controller;
 
+import com.study.domain.MyBean411;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,5 +47,15 @@ public class Controller41 {
         System.out.println("apple.getClass() = " + apple.getClass());
         Object food = map.get("food");
         System.out.println("food.getClass() = " + food.getClass());
+    }
+
+    @PostMapping("sub6")
+    public void sub6(@RequestBody MyBean411 bean411) {
+        System.out.println("bean411 = " + bean411);
+    }
+
+    @PostMapping("sub7")
+    public void sub7(@RequestBody MyBean411 bean411) {
+        System.out.println("bean411 = " + bean411);
     }
 }
