@@ -24,7 +24,7 @@ public class Controller44 {
         // 전달된 데이터에서 "username" 키에 해당하는 값을 추출하여 문자열로 변환
         String username = map.get("username").toString();
         // 권한
-//        map.get("scope");
+        String scope = map.get("scope").toString();
         // WT의 클레임(Claims)을 정의하고 생성합니다.
         // 여기서는 토큰의 발행자, 발행 시간, 만료 시간, 서브젝트 등을 설정
         JwtClaimsSet claimSet = JwtClaimsSet.builder()
@@ -36,9 +36,9 @@ public class Controller44 {
                 .expiresAt(Instant.now().plusSeconds(60 * 60 * 24))
                 // 토큰의 사용자를 username 으로 설정
                 .subject(username)
-                // 사용자 정의 클레임으로 "scope" 설정 값은 빈 문자열
+                // 사용자 정의 클레임으로 "scope" 설정 값은 scope
                 // 클라이언트나 서버에서 사용하는 추가 정보 포함 가능
-                .claim("scope", "")
+                .claim("scope", scope)
                 // 설정한 클레임들을 바탕으로 객체 생성 > JWT의 페이로드로 사용됨
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claimSet))
@@ -56,5 +56,26 @@ public class Controller44 {
     @PreAuthorize("isAuthenticated()")
     public String user() {
         return "로그인 유저만 접근 가능한 경로";
+    }
+
+    @GetMapping("admin")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('SCOPE_admin')")
+    public String admin() {
+        return "admin 접근 가능";
+    }
+
+    @GetMapping("manager")
+    @ResponseBody
+    @PreAuthorize("hasAuthority('SCOPE_manager')")
+    public String manager() {
+        return "manager 접근 가능";
+    }
+
+    @GetMapping("ma")
+    @ResponseBody
+    @PreAuthorize("hasAnyAuthority('SCOPE_maneger','SCOPE_admin')")
+    public String ma() {
+        return "admin+manager 접근 가능";
     }
 }
