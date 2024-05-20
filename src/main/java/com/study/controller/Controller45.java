@@ -26,4 +26,19 @@ public class Controller45 {
         file.transferTo(new File(path));
         return null;
     }
+
+    @PostMapping("sub2")
+    @ResponseBody
+    public String sub2(@RequestParam("name") String name,
+                       @RequestParam("file[]") MultipartFile[] files) throws IOException {
+        System.out.println("name = " + name);
+        if (files != null & files.length > 0) {
+            for (MultipartFile file : files) {
+//                System.out.println("file.getOriginalFilename() = " + file.getOriginalFilename());
+                String path = "/Users/hya/IdeaProjects/study-spring/src/main/resources/templates/" + file.getOriginalFilename();
+                file.transferTo(new File(path));
+            }
+        }
+        return null;
+    }
 }
